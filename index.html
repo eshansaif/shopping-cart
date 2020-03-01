@@ -15,8 +15,8 @@
    <section>
       <div class="container">
          <div class="cart">
-            <div class="col-md-12 col-lg-10 mx-auto">
-               <div class="cart-item">
+            <div id="cart-area" class="col-md-12 col-lg-10 mx-auto">
+               <div id="phone-area" class="cart-item">
                   <div class="row">
                      <div class="col-md-7 center-item">
                         <img src="images/product-1.png" alt="">
@@ -28,14 +28,15 @@
                            <button id="phone-minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
                            <input id="phone-input" type="text" class="form-control text-center" value="1" min="0">
                            <button id="phone-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           
                         </div>
                         <h5>$ <span id="single-phone-price">1219</span></h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <button id="remove-phone"><img src="images/remove.png" alt="" class="remove-item"></button>
                      </div>
                   </div>
                </div>
 
-               <div class="cart-item">
+               <div id="case-area" class="cart-item">
                   <div class="row">
                      <div class="col-md-7 center-item mx-auto">
                         <img src="images/product-2.png" alt="">
@@ -43,13 +44,13 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button id="case-minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <button  id="case-minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
                            <input id="case-input" type="text" class="form-control text-center" value="1"  min="0">
-                           <button id="case-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
-
+                           <button  id="case-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           
                         </div>
                         <h5>$ <span id="single-case-price">59</span></h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <button id="remove-case"><img src="images/remove.png" alt="" class="remove-item"></button>
                      </div>
                   </div>
                </div>
@@ -71,15 +72,23 @@
                   </div>
                </div>
                <div class="col-md-12 pt-4 pb-4">
-                  <button type="button" class="btn btn-success check-out">Check Out</button>
+                  <button id="check-out" type="button" class="btn btn-success check-out">Check Out</button>
                </div>
             </div>
+
+            <div id="success-area" class=" p-3 mb-2 bg-info text-white text-center">
+               <h2>Your Order has been placed Successfully!!! </h2>
+            </div>
+            
          </div>
+         
       </div>
+      
    </section>
 
-
+   
    <script>
+
       //for iphone section
       const phonePlus = document.getElementById("phone-plus");
       phonePlus.addEventListener("click",function(){
@@ -110,6 +119,7 @@
          const minusNumber =  phoneInputNumber - 1;
          document.getElementById("phone-input").value = minusNumber;
 
+         
          const singlePhonePrice = document.getElementById("single-phone-price").innerText;
          const singlePhoneNumber = parseFloat(singlePhonePrice);
          const phoneMinusPrice =  singlePhoneNumber - 1219;
@@ -122,6 +132,8 @@
          const cartTotal = document.getElementById("cart-total").innerText;
          const cartTotalNumber = parseFloat(cartTotal) - 1219;
          document.getElementById("cart-total").innerText = cartTotalNumber;
+
+         
       })
 
       //for case section
@@ -131,6 +143,9 @@
          const caseInputNumber = parseInt(caseInput);
          const plusNumber =  caseInputNumber + 1;
          document.getElementById("case-input").value = plusNumber;
+
+         
+
 
          const singCasePrice = document.getElementById("single-case-price").innerText;
          const singleCaseNumber = parseFloat(singCasePrice);
@@ -167,6 +182,33 @@
          const cartTotalNumber = parseFloat(cartTotal) - 59;
          document.getElementById("cart-total").innerText = cartTotalNumber;
       })
+
+      //checkout button
+      const checkOutBtn = document.getElementById("check-out");
+      checkOutBtn.addEventListener("click",function(){
+         const cartArea = document.getElementById("cart-area");
+         cartArea.style.display = "none";
+
+         const successArea = document.getElementById("success-area");
+         successArea.style.display = "block";
+      })
+
+      //remove phone area
+      const removePhone = document.getElementById("remove-phone");
+      removePhone.addEventListener("click",function(){
+         const phoneArea = document.getElementById("phone-area");
+         phoneArea.style.display = "none";
+      })
+
+      //remove case area
+      const removeCase = document.getElementById("remove-case");
+      removeCase.addEventListener("click",function(){
+         const caseArea = document.getElementById("case-area");
+         caseArea.style.display = "none";
+      })
+
+      
+
 
 
    </script>
