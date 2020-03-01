@@ -26,7 +26,7 @@
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
                            <button id="phone-minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input id="phone-input" type="text" class="form-control text-center" value="1" min="0">
+                           <input id="phone-input" type="text" class="form-control text-center" value="1" min="0" disabled>
                            <button id="phone-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
                            
                         </div>
@@ -45,7 +45,7 @@
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
                            <button  id="case-minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input id="case-input" type="text" class="form-control text-center" value="1"  min="0">
+                           <input id="case-input" type="text" class="form-control text-center" value="1"  min="0" disabled>
                            <button  id="case-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
                            
                         </div>
@@ -90,6 +90,7 @@
    <script>
 
       //for iphone section
+      
       const phonePlus = document.getElementById("phone-plus");
       phonePlus.addEventListener("click",function(){
          const phoneInput = document.getElementById("phone-input").value;
@@ -102,15 +103,15 @@
          const phoneMultiplyPrice = 1219 * plusNumber;
          document.getElementById("single-phone-price").innerText = phoneMultiplyPrice;
 
-         const subTotal = document.getElementById("sub-total").innerText;
-         const subTotalNumber = parseFloat(subTotal) + 1219;
-         document.getElementById("sub-total").innerText = subTotalNumber;
-         
-
-         const cartTotal = document.getElementById("cart-total").innerText;
-         const cartTotalNumber = parseFloat(cartTotal) + 1219;
-         document.getElementById("cart-total").innerText = cartTotalNumber;
+         updatePhonePlusSubAndTotal("sub-total");
+         updatePhonePlusSubAndTotal("cart-total");
       })
+
+      function updatePhonePlusSubAndTotal(id){
+         const cartTotal = document.getElementById(id).innerText;
+         const cartTotalNumber = parseFloat(cartTotal) + 1219;
+         document.getElementById(id).innerText = cartTotalNumber;
+      }
 
       const phoneMinus = document.getElementById("phone-minus");
       phoneMinus.addEventListener("click",function(){
@@ -125,16 +126,17 @@
          const phoneMinusPrice =  singlePhoneNumber - 1219;
          document.getElementById("single-phone-price").innerText = phoneMinusPrice;
          
-         const subTotal = document.getElementById("sub-total").innerText;
-         const subTotalNumber = parseFloat(subTotal) - 1219;
-         document.getElementById("sub-total").innerText = subTotalNumber;
 
-         const cartTotal = document.getElementById("cart-total").innerText;
-         const cartTotalNumber = parseFloat(cartTotal) - 1219;
-         document.getElementById("cart-total").innerText = cartTotalNumber;
-
-         
+         updatePhoneMinusSubAndTotal("sub-total");
+         updatePhoneMinusSubAndTotal("cart-total");
+     
       })
+
+      function updatePhoneMinusSubAndTotal(id){
+         const cartSubAndTotal = document.getElementById(id).innerText;
+         const cartSubAndTotalNumber = parseFloat(cartSubAndTotal) - 1219;
+         document.getElementById(id).innerText = cartSubAndTotalNumber;
+      }
 
       //for case section
       const casePlus = document.getElementById("case-plus");
@@ -144,23 +146,21 @@
          const plusNumber =  caseInputNumber + 1;
          document.getElementById("case-input").value = plusNumber;
 
-         
-
-
          const singCasePrice = document.getElementById("single-case-price").innerText;
          const singleCaseNumber = parseFloat(singCasePrice);
          const caseMultiplyPrice = 59 * plusNumber;
          document.getElementById("single-case-price").innerText = caseMultiplyPrice;
 
-         const subTotal = document.getElementById("sub-total").innerText;
-         const subTotalNumber = parseFloat(subTotal) + 59;
-         document.getElementById("sub-total").innerText = subTotalNumber;
-
-         const cartTotal = document.getElementById("cart-total").innerText;
-         const cartTotalNumber = parseFloat(cartTotal) + 59;
-         document.getElementById("cart-total").innerText = cartTotalNumber;
+         updateCasePlusSubAndTotal("sub-total");
+         updateCasePlusSubAndTotal("cart-total");
 
       })
+
+      function updateCasePlusSubAndTotal(id){
+         const cartTotal = document.getElementById(id).innerText;
+         const cartTotalNumber = parseFloat(cartTotal) + 59;
+         document.getElementById(id).innerText = cartTotalNumber;
+      }
 
       const caseMinus = document.getElementById("case-minus");
       caseMinus.addEventListener("click",function(){
@@ -174,14 +174,16 @@
          const caseMinusPrice =  singleCaseNumber - 59;
          document.getElementById("single-case-price").innerText = caseMinusPrice;
 
-         const subTotal = document.getElementById("sub-total").innerText;
-         const subTotalNumber = parseFloat(subTotal) - 59;
-         document.getElementById("sub-total").innerText = subTotalNumber;
-
-         const cartTotal = document.getElementById("cart-total").innerText;
-         const cartTotalNumber = parseFloat(cartTotal) - 59;
-         document.getElementById("cart-total").innerText = cartTotalNumber;
+         updateCaseMinusSubAndTotal("sub-total");
+         updateCaseMinusSubAndTotal("cart-total");
       })
+
+      function updateCaseMinusSubAndTotal(id){
+         const cartTotal = document.getElementById(id).innerText;
+         const cartTotalNumber = parseFloat(cartTotal) - 59;
+         document.getElementById(id).innerText = cartTotalNumber;
+      }
+      
 
       //checkout button
       const checkOutBtn = document.getElementById("check-out");
@@ -198,14 +200,47 @@
       removePhone.addEventListener("click",function(){
          const phoneArea = document.getElementById("phone-area");
          phoneArea.style.display = "none";
+
+         const singlePhonePrice = document.getElementById("single-phone-price").innerText;
+         const singlePhoneNumber = parseFloat(singlePhonePrice);
+
+         const subTotal = document.getElementById("sub-total").innerText;
+         const subTotalNumber = parseFloat(subTotal);
+
+         const cartTotal = document.getElementById("cart-total").innerText;
+         const cartTotalNumber = parseFloat(cartTotal);
+
+         const removeSubTotal = subTotalNumber - singlePhoneNumber;
+         document.getElementById("sub-total").innerText = removeSubTotal;
+
+         const removeCartTotal = cartTotalNumber - singlePhoneNumber;
+         document.getElementById("cart-total").innerText = removeCartTotal;
+
       })
 
+      
       //remove case area
       const removeCase = document.getElementById("remove-case");
       removeCase.addEventListener("click",function(){
          const caseArea = document.getElementById("case-area");
          caseArea.style.display = "none";
+
+         const singleCasePrice = document.getElementById("single-case-price").innerText;
+         const singleCaseNumber = parseFloat(singleCasePrice);
+
+         const subTotal = document.getElementById("sub-total").innerText;
+         const subTotalNumber = parseFloat(subTotal);
+
+         const cartTotal = document.getElementById("cart-total").innerText;
+         const cartTotalNumber = parseFloat(cartTotal);
+
+         const removeSubTotal = subTotalNumber - singleCaseNumber;
+         document.getElementById("sub-total").innerText = removeSubTotal;
+
+         const removeCartTotal = cartTotalNumber - singleCaseNumber;
+         document.getElementById("cart-total").innerText = removeCartTotal;
       })
+
 
       
 
